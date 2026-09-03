@@ -31,11 +31,32 @@ int main(){
     float velocidad = 4.5f;
     bool estaVivo = true;
     bool tieneLlave = false;
+    int nivel = 1;
 
     mostrarFicha(nombrePersonaje,vida,monedas,velocidad,tieneLlave);
 
-    cout << "Atacamos a nuestro personaje con 500 de danio!" << endl;
-    vida = vida - 500;
+    cout << "Tratando de ingresar al Area 51..." << endl;
+    cout << "El nivel requerido es 5 y necesita una llave..." << endl;
+
+    if (nivel >= 5 && tieneLlave == true)
+    {
+        cout << "Ha ingresado al Area 51!" <<endl;
+    }else{
+        cout << "Los secretos del Area 51 siguen ocultos para Ud." << endl;
+    }    
+
+    cout << "Atacamos a nuestro personaje con 100 de danio!" << endl;
+    vida = vida - 100;
+    tieneLlave = true;
+    cout << "Por haber encontrado la llave, has subido 4 niveles!" << endl;
+    nivel = nivel + 4;
+
+    if (nivel >= 5 && tieneLlave == true)
+    {
+        cout << "Ha ingresado al Area 51!" <<endl;
+    }else{
+        cout << "Los secretos del Area 51 siguen ocultos para Ud." << endl;
+    }  
 
     mostrarFicha(nombrePersonaje,vida,monedas,velocidad,tieneLlave);
     return 0;
