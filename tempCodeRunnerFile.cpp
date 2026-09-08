@@ -1,0 +1,1 @@
+    cout << "Nivel: " << nivel << endl;

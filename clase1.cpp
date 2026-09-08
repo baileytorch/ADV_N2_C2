@@ -6,11 +6,22 @@ string personajeVivo(int vida)
     string respuesta = "";
     if (vida <= 0)
     {
-        respuesta = "No";
+        respuesta = "No... GAME OVER!";
     }
     else
     {
         respuesta = "Si";
+    }
+    return respuesta;
+}
+
+string mostrarLlave(bool llave){
+    string respuesta = "";
+    if (llave == true)
+    {
+        respuesta = "Encontro la llave!";
+    }else{
+        respuesta = "Aun no ha encontrado la llave!";
     }
     return respuesta;
 }
@@ -26,20 +37,22 @@ string mostrarFicha(string nombre, int vida, int nivel, int coins, float speed, 
     cout << "Monedas: " << coins << endl;
     cout << "Velocidad: " << speed << endl;
     cout << "Esta Vivo?: " << personajeVivo(vida) << endl;
-    cout << "Tiene llave?: " << llave << endl;
+    cout << "Tiene llave?: " << mostrarLlave(llave) << endl;
     cout << "" << endl;
 }
 
 string accesoArea51(int nivel, bool llave)
 {
+    string respuesta = "";
     if (nivel >= 5 && llave == true)
     {
-        cout << "Ha ingresado al Area 51!" << endl;
+        respuesta = "Ha ingresado al Area 51!";
     }
     else
     {
-        cout << "Los secretos del Area 51 siguen ocultos para Ud." << endl;
+        respuesta = "Los secretos del Area 51 siguen ocultos para Ud.";
     }
+    return respuesta;
 }
 
 int main()
@@ -59,8 +72,17 @@ int main()
     accesoArea51(nivel,tieneLlave);
 
     cout << "" << endl;
-    cout << "Atacamos a nuestro personaje con 100 de danio!" << endl;
-    vida = vida - 100;
+    while (vida > 0)
+    {
+        cout << "Atacamos a nuestro personaje con 100 de danio!" << endl;
+        vida = vida - 100;
+    }
+    
+    for (int i = 0; i < 5; i++)
+    {
+        cout << "Turno: " << i << endl;
+    }   
+
     tieneLlave = true;
     
     cout << "" << endl;
