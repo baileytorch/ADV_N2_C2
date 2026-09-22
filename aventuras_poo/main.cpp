@@ -3,6 +3,7 @@ using namespace std;
 
 int vida = 100;
 bool vivo = true;
+int danioJugador = 0;
 
 // Una función VOID, no retorna nada, solo ejecuta una acción
 void avanzar(){
@@ -59,7 +60,6 @@ int main(){
                 saltar();
                 break;
             case 3:
-                int danioJugador = 0;
                 cout << "Ingrese daño del personaje: \n" << endl;
                 cin >> danioJugador;
                 recibirDanio(danioJugador);
@@ -72,6 +72,7 @@ int main(){
                 break;            
             default:
                 cout << "Opción inválida, intente nuevamente..." << endl;
+                opcion = 0;
                 break;
         }
     }
