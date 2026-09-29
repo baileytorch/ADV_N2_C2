@@ -2,12 +2,13 @@
 using namespace std;
 
 class Personaje{
-    public:
+    private:
         // Atributos de la clase, Cómo es la clase/objeto?
         int vida;
         bool vivo;
         int danioJugador;
 
+    public:
         // La siguiente función se llama CONSTRUCTOR, se encargará de crear objetos de la clase PERSONAJE
         Personaje(int vidaPersonaje, bool personajeVivo, int danioPersonaje):
             vida(vidaPersonaje),vivo(personajeVivo),danioJugador(danioPersonaje){}
