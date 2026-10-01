@@ -58,6 +58,7 @@ int main(){
     cout << "Cuante vida tendrá Poo?" << endl;
     cin >> vida;
 
+    // Instancia de clase
     Personaje jugador(vida,vivo,danio);
 
     while (opcion != 5 && vivo )

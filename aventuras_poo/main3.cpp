@@ -3,17 +3,16 @@ using namespace std;
 
 class Personaje
 {
-private:
+protected:
     // Atributos de la clase, Cómo es la clase/objeto?
     string nombre;
     int vida;
     bool vivo;
-    int danioJugador;
 
 public:
     // La siguiente función se llama CONSTRUCTOR, se encargará de crear objetos de la clase PERSONAJE
-    Personaje(string nombrePersonaje, int vidaPersonaje, bool personajeVivo, int danioPersonaje) : 
-    nombre(nombrePersonaje), vida(vidaPersonaje), vivo(personajeVivo), danioJugador(danioPersonaje) {}
+    Personaje(string nombrePersonaje, int vidaPersonaje, bool personajeVivo) : 
+        nombre(nombrePersonaje), vida(vidaPersonaje), vivo(personajeVivo) {}
 
     // Una función VOID, no retorna nada, solo ejecuta una acción
     // Métodos de la clase, Qué puede hacer la clase/objeto?
@@ -56,13 +55,54 @@ public:
     }
 };
 
+class Guerrero : public Personaje
+{
+    private:
+        string arma;
+    public:
+        Guerrero(string nombrePersonaje, int vidaPersonaje, bool personajeVivo,string nombreArma):
+            Personaje(nombrePersonaje,vidaPersonaje,personajeVivo), arma(nombreArma){}
+        
+        void atacar(){
+            cout << "Ataca con " << arma << endl;
+        }
+};
+
+class Mago : public Personaje
+{
+    private:
+        string arma;
+    public:
+        Mago(string nombrePersonaje, int vidaPersonaje, bool personajeVivo,string nombreArma):
+            Personaje(nombrePersonaje,vidaPersonaje,personajeVivo), arma(nombreArma){}
+        
+        void atacar(){
+            cout << "Ataca con " << arma << endl;
+        }
+};
+
+class Arquero : public Personaje
+{
+    private:
+        string arma;
+    public:
+        Arquero(string nombrePersonaje, int vidaPersonaje, bool personajeVivo,string nombreArma):
+            Personaje(nombrePersonaje,vidaPersonaje,personajeVivo), arma(nombreArma){}
+        
+        void atacar(){
+            cout << "Ataca con " << arma << endl;
+        }
+};
+
 int main()
 {
     int opcion = 0;
+    int tipoPersonaje = 0;
     int vida = 0;
     bool vivo = true;
     int danio = 0;
     string nombre = "";
+    Personaje* jugador = nullptr;
 
     cout << "Vamos a crear nuestro PJ!" << endl;
     cout << "Nombre del personaje:" << endl;
@@ -71,7 +111,20 @@ int main()
     cout << "Cuanta vida tendrá " << nombre << "?" << endl;
     cin >> vida;
 
-    Personaje jugador(nombre, vida, vivo, danio);
+    cout << "Qué tipo de personaje será?..." << endl;
+    cout << "[1] Guerrrero." << endl;
+    cout << "[2] Mago." << endl;
+    cout << "[3] Arquero." << endl;
+    cin >> tipoPersonaje;
+
+    switch(tipoPersonaje){
+        case 1:
+            jugador = new Guerrero(nombre,vida,vivo,"Espada");
+        case 2:
+            jugador = new Mago(nombre,vida,vivo,"Báculo");
+        case 3:
+            jugador = new Arquero(nombre,vida,vivo,"Arco de las Mil Flamas Demoniacas!!");
+    }
 
     while (opcion != 5 && vivo)
     {
@@ -86,19 +139,19 @@ int main()
         switch (opcion)
         {
         case 1:
-            jugador.avanzar(nombre);
+            jugador->avanzar(nombre);
             break;
         case 2:
-            jugador.saltar(nombre);
+            jugador->saltar(nombre);
             break;
         case 3:
             cout << "Ingrese daño del personaje: \n"
                  << endl;
             cin >> danio;
-            jugador.recibirDanio(nombre, danio);
+            jugador->recibirDanio(nombre, danio);
             break;
         case 4:
-            jugador.verEstado(nombre);
+            jugador->verEstado(nombre);
             break;
         case 5:
             cout << "Apagando motores..." << endl;
