@@ -1,21 +1,18 @@
 #include <iostream>
+#include <windows.h>
 using namespace std;
 
 class Personaje
 {
 protected:
-    // Atributos de la clase, Cómo es la clase/objeto?
     string nombre;
     int vida;
     bool vivo;
 
 public:
-    // La siguiente función se llama CONSTRUCTOR, se encargará de crear objetos de la clase PERSONAJE
     Personaje(string nombrePersonaje, int vidaPersonaje, bool personajeVivo) : 
         nombre(nombrePersonaje), vida(vidaPersonaje), vivo(personajeVivo) {}
 
-    // Una función VOID, no retorna nada, solo ejecuta una acción
-    // Métodos de la clase, Qué puede hacer la clase/objeto?
     void avanzar(string nombrePersonaje)
     {
         cout << nombrePersonaje << " avanza..." << endl;
@@ -28,12 +25,8 @@ public:
 
     void recibirDanio(string nombrePersonaje, int danio)
     {
-        // vida = vida - danio;
         vida -= danio;
 
-        // if (vida < 0) {
-        //     vida = 0;
-        // }
         if (vida < 0)
             vida = 0;
 
@@ -53,6 +46,8 @@ public:
         cout << "Vida: " << vida << endl;
         cout << "Está vivo " << nombrePersonaje << "?" << (vivo ? "Si" : "No") << endl;
     }
+
+    virtual void atacar(){};
 };
 
 class Guerrero : public Personaje
@@ -63,7 +58,7 @@ class Guerrero : public Personaje
         Guerrero(string nombrePersonaje, int vidaPersonaje, bool personajeVivo,string nombreArma):
             Personaje(nombrePersonaje,vidaPersonaje,personajeVivo), arma(nombreArma){}
         
-        void atacar(){
+        void atacar() override{
             cout << "Ataca con " << arma << endl;
         }
 };
@@ -76,8 +71,8 @@ class Mago : public Personaje
         Mago(string nombrePersonaje, int vidaPersonaje, bool personajeVivo,string nombreArma):
             Personaje(nombrePersonaje,vidaPersonaje,personajeVivo), arma(nombreArma){}
         
-        void atacar(){
-            cout << "Ataca con " << arma << endl;
+        void atacar() override{
+            cout << "Lanza una bola de fuego con su " << arma << endl;
         }
 };
 
@@ -89,13 +84,14 @@ class Arquero : public Personaje
         Arquero(string nombrePersonaje, int vidaPersonaje, bool personajeVivo,string nombreArma):
             Personaje(nombrePersonaje,vidaPersonaje,personajeVivo), arma(nombreArma){}
         
-        void atacar(){
-            cout << "Ataca con " << arma << endl;
+        void atacar() override{
+            cout << "Dispara desde una gran distancia con su " << arma << endl;
         }
 };
 
 int main()
 {
+    SetConsoleOutputCP(CP_UTF8);
     int opcion = 0;
     int tipoPersonaje = 0;
     int vida = 0;
@@ -106,7 +102,7 @@ int main()
 
     cout << "Vamos a crear nuestro PJ!" << endl;
     cout << "Nombre del personaje:" << endl;
-    cin >> nombre;
+    getline(cin, nombre);
 
     cout << "Cuanta vida tendrá " << nombre << "?" << endl;
     cin >> vida;
@@ -119,21 +115,28 @@ int main()
 
     switch(tipoPersonaje){
         case 1:
-            jugador = new Guerrero(nombre,vida,vivo,"Espada");
+            jugador = new Guerrero(nombre,vida,vivo,"Espada de Colmillo de Basilisco!!");
+            cout << nombre << " ahora es un Guerrero!" << endl;
+            break;
         case 2:
-            jugador = new Mago(nombre,vida,vivo,"Báculo");
+            jugador = new Mago(nombre,vida,vivo,"Báculo del Poder Ilimitado!!");
+            cout << nombre << " ahora es un Mago!" << endl;
+            break;
         case 3:
             jugador = new Arquero(nombre,vida,vivo,"Arco de las Mil Flamas Demoniacas!!");
+            cout << nombre << " ahora es un Arquero!" << endl;
+            break;
     }
 
-    while (opcion != 5 && vivo)
+    while (opcion != 6 && vivo)
     {
-        cout << "Aventuras de "<< nombre << "\nSeleccione una opción [1-5]" << endl;
+        cout << "\nAventuras de "<< nombre << "\nSeleccione una opción [1-5]" << endl;
         cout << "[1] Avanzar." << endl;
         cout << "[2] Saltar." << endl;
         cout << "[3] Recibir Daño." << endl;
         cout << "[4] Ver Estado Personaje." << endl;
-        cout << "[5] Salir." << endl;
+        cout << "[5] Atacar." << endl;
+        cout << "[6] Salir." << endl;
         cin >> opcion;
 
         switch (opcion)
@@ -154,6 +157,9 @@ int main()
             jugador->verEstado(nombre);
             break;
         case 5:
+            jugador->atacar();
+            break;
+        case 6:
             cout << "Apagando motores..." << endl;
             break;
         default:
