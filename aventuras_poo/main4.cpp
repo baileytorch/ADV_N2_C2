@@ -10,11 +10,13 @@ protected:
     string descripcion;
     int durabilidad;
     string categoria;
+
 public:
-    Item(string nombreItem, string descripcionItem, int durabilidadItem, string categoriaItem):
-        nombre(nombreItem), descripcion(descripcionItem), durabilidad(durabilidadItem), categoria(categoriaItem){}
-    
-    string obtenerNombre() {
+    Item(string nomIt = "", string desIt = "", int durIt = 0, string catIt = "") : 
+    nombre(nomIt), descripcion(desIt), durabilidad(durIt), categoria(catIt) {}
+
+    string obtenerNombre()
+    {
         return nombre;
     }
 };
@@ -28,8 +30,7 @@ protected:
     vector<Item> inventario;
 
 public:
-    Personaje(string nombrePersonaje, int vidaPersonaje, bool personajeVivo) : 
-        nombre(nombrePersonaje), vida(vidaPersonaje), vivo(personajeVivo) {}
+    Personaje(string nombrePersonaje, int vidaPersonaje, bool personajeVivo) : nombre(nombrePersonaje), vida(vidaPersonaje), vivo(personajeVivo) {}
 
     void avanzar(string nombrePersonaje)
     {
@@ -65,9 +66,10 @@ public:
         cout << "Está vivo " << nombrePersonaje << "?" << (vivo ? "Si" : "No") << endl;
     }
 
-    virtual void atacar(){};
+    virtual void atacar() {};
 
-    void agregarItem(Item& item){
+    void agregarItem(Item &item)
+    {
         inventario.push_back(item);
         cout << "El item " << item.obtenerNombre() << " ha sido agregado al inventario." << endl;
     };
@@ -75,41 +77,91 @@ public:
 
 class Guerrero : public Personaje
 {
-    private:
-        string arma;
-    public:
-        Guerrero(string nombrePersonaje, int vidaPersonaje, bool personajeVivo,string nombreArma):
-            Personaje(nombrePersonaje,vidaPersonaje,personajeVivo), arma(nombreArma){}
-        
-        void atacar() override{
-            cout << "Ataca con " << arma << endl;
-        }
+private:
+    string arma;
+
+public:
+    Guerrero(string nombrePersonaje, int vidaPersonaje, bool personajeVivo, string nombreArma) : Personaje(nombrePersonaje, vidaPersonaje, personajeVivo), arma(nombreArma) {}
+
+    void atacar() override
+    {
+        cout << "Ataca con " << arma << endl;
+    }
 };
 
 class Mago : public Personaje
 {
-    private:
-        string arma;
-    public:
-        Mago(string nombrePersonaje, int vidaPersonaje, bool personajeVivo,string nombreArma):
-            Personaje(nombrePersonaje,vidaPersonaje,personajeVivo), arma(nombreArma){}
-        
-        void atacar() override{
-            cout << "Lanza una bola de fuego con su " << arma << endl;
-        }
+private:
+    string arma;
+
+public:
+    Mago(string nombrePersonaje, int vidaPersonaje, bool personajeVivo, string nombreArma) : Personaje(nombrePersonaje, vidaPersonaje, personajeVivo), arma(nombreArma) {}
+
+    void atacar() override
+    {
+        cout << "Lanza una bola de fuego con su " << arma << endl;
+    }
 };
 
 class Arquero : public Personaje
 {
-    private:
-        string arma;
-    public:
-        Arquero(string nombrePersonaje, int vidaPersonaje, bool personajeVivo,string nombreArma):
-            Personaje(nombrePersonaje,vidaPersonaje,personajeVivo), arma(nombreArma){}
-        
-        void atacar() override{
-            cout << "Dispara desde una gran distancia con su " << arma << endl;
-        }
+private:
+    string arma;
+
+public:
+    Arquero(string nombrePersonaje, int vidaPersonaje, bool personajeVivo, string nombreArma) : Personaje(nombrePersonaje, vidaPersonaje, personajeVivo), arma(nombreArma) {}
+
+    void atacar() override
+    {
+        cout << "Dispara desde una gran distancia con su " << arma << endl;
+    }
+};
+
+Item abrirCofre(){
+    int itemSeleccionado;
+    string nombre;
+    string descripcion;
+    int durabilidad;
+    string categoria;
+
+    cout << "Ha encontrado un cofre!\nEscoja un item del cofre:" << endl;
+    cout << "[1] Poción de Almas." << endl;
+    cout << "[2] Flechas de Veneno." << endl;
+    cout << "[3] La brújula del Capitán Jack Sparrow." << endl;
+    cin >> itemSeleccionado;
+
+    switch (itemSeleccionado)
+    {
+    case 1:
+        nombre = "Poción de Almas";
+        descripcion = "Causa alucinaciones terroríficas a las enemigos afectados por 5 minutos.";
+        durabilidad = 1;
+        categoria = "Daño";
+        break;
+
+    case 2:
+        nombre = "Flechas de Veneno";
+        descripcion = "Agrega 2 de daño de veneno por segundo 5 segundos.";
+        durabilidad = -1;
+        categoria = "Daño";
+        break;
+
+    case 3:
+        nombre = "La brújula del Capitán Jack Sparrow";
+        descripcion = "No apunta al norte, apunta a lo que más anhelas, ayuda a encontrar tesoros ocultos.";
+        durabilidad = -1;
+        categoria = "Guía";
+        break;
+    
+    default:
+        nombre = "1 moneda";
+        descripcion = "No brilla mucho, pero si consigues un montón podrás gastarlas en la tienda...";
+        durabilidad = 1;
+        categoria = "Monedas";
+        break;
+    }
+    Item item(nombre,descripcion,durabilidad,categoria);
+    return item;
 };
 
 int main()
@@ -121,7 +173,8 @@ int main()
     bool vivo = true;
     int danio = 0;
     string nombre = "";
-    Personaje* jugador = nullptr;
+    Personaje *jugador = nullptr;
+    Item nuevoItem;
 
     cout << "Vamos a crear nuestro PJ!" << endl;
     cout << "Nombre del personaje:" << endl;
@@ -136,30 +189,32 @@ int main()
     cout << "[3] Arquero." << endl;
     cin >> tipoPersonaje;
 
-    switch(tipoPersonaje){
-        case 1:
-            jugador = new Guerrero(nombre,vida,vivo,"Espada de Colmillo de Basilisco!!");
-            cout << nombre << " ahora es un Guerrero!" << endl;
-            break;
-        case 2:
-            jugador = new Mago(nombre,vida,vivo,"Báculo del Poder Ilimitado!!");
-            cout << nombre << " ahora es un Mago!" << endl;
-            break;
-        case 3:
-            jugador = new Arquero(nombre,vida,vivo,"Arco de las Mil Flamas Demoniacas!!");
-            cout << nombre << " ahora es un Arquero!" << endl;
-            break;
+    switch (tipoPersonaje)
+    {
+    case 1:
+        jugador = new Guerrero(nombre, vida, vivo, "Espada de Colmillo de Basilisco!!");
+        cout << nombre << " ahora es un Guerrero!" << endl;
+        break;
+    case 2:
+        jugador = new Mago(nombre, vida, vivo, "Báculo del Poder Ilimitado!!");
+        cout << nombre << " ahora es un Mago!" << endl;
+        break;
+    case 3:
+        jugador = new Arquero(nombre, vida, vivo, "Arco de las Mil Flamas Demoniacas!!");
+        cout << nombre << " ahora es un Arquero!" << endl;
+        break;
     }
 
-    while (opcion != 6 && vivo)
+    while (opcion != 7 && vivo)
     {
-        cout << "\nAventuras de "<< nombre << "\nSeleccione una opción [1-5]" << endl;
+        cout << "\nAventuras de " << nombre << "\nSeleccione una opción [1-5]" << endl;
         cout << "[1] Avanzar." << endl;
         cout << "[2] Saltar." << endl;
         cout << "[3] Recibir Daño." << endl;
         cout << "[4] Ver Estado Personaje." << endl;
         cout << "[5] Atacar." << endl;
-        cout << "[6] Salir." << endl;
+        cout << "[6] Abrir Cofre." << endl;
+        cout << "[7] Salir." << endl;
         cin >> opcion;
 
         switch (opcion)
@@ -183,6 +238,10 @@ int main()
             jugador->atacar();
             break;
         case 6:
+            nuevoItem = abrirCofre();
+            jugador->agregarItem(nuevoItem);
+            break;
+        case 7:
             cout << "Apagando motores..." << endl;
             break;
         default:

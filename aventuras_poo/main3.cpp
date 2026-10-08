@@ -10,8 +10,7 @@ protected:
     bool vivo;
 
 public:
-    Personaje(string nombrePersonaje, int vidaPersonaje, bool personajeVivo) : 
-        nombre(nombrePersonaje), vida(vidaPersonaje), vivo(personajeVivo) {}
+    Personaje(string nombrePersonaje, int vidaPersonaje, bool personajeVivo) : nombre(nombrePersonaje), vida(vidaPersonaje), vivo(personajeVivo) {}
 
     void avanzar(string nombrePersonaje)
     {
@@ -47,46 +46,49 @@ public:
         cout << "Está vivo " << nombrePersonaje << "?" << (vivo ? "Si" : "No") << endl;
     }
 
-    virtual void atacar(){};
+    virtual void atacar() {};
 };
 
 class Guerrero : public Personaje
 {
-    private:
-        string arma;
-    public:
-        Guerrero(string nombrePersonaje, int vidaPersonaje, bool personajeVivo,string nombreArma):
-            Personaje(nombrePersonaje,vidaPersonaje,personajeVivo), arma(nombreArma){}
-        
-        void atacar() override{
-            cout << "Ataca con " << arma << endl;
-        }
+private:
+    string arma;
+
+public:
+    Guerrero(string nombrePersonaje, int vidaPersonaje, bool personajeVivo, string nombreArma) : Personaje(nombrePersonaje, vidaPersonaje, personajeVivo), arma(nombreArma) {}
+
+    void atacar() override
+    {
+        cout << "Ataca con " << arma << endl;
+    }
 };
 
 class Mago : public Personaje
 {
-    private:
-        string arma;
-    public:
-        Mago(string nombrePersonaje, int vidaPersonaje, bool personajeVivo,string nombreArma):
-            Personaje(nombrePersonaje,vidaPersonaje,personajeVivo), arma(nombreArma){}
-        
-        void atacar() override{
-            cout << "Lanza una bola de fuego con su " << arma << endl;
-        }
+private:
+    string arma;
+
+public:
+    Mago(string nombrePersonaje, int vidaPersonaje, bool personajeVivo, string nombreArma) : Personaje(nombrePersonaje, vidaPersonaje, personajeVivo), arma(nombreArma) {}
+
+    void atacar() override
+    {
+        cout << "Lanza una bola de fuego con su " << arma << endl;
+    }
 };
 
 class Arquero : public Personaje
 {
-    private:
-        string arma;
-    public:
-        Arquero(string nombrePersonaje, int vidaPersonaje, bool personajeVivo,string nombreArma):
-            Personaje(nombrePersonaje,vidaPersonaje,personajeVivo), arma(nombreArma){}
-        
-        void atacar() override{
-            cout << "Dispara desde una gran distancia con su " << arma << endl;
-        }
+private:
+    string arma;
+
+public:
+    Arquero(string nombrePersonaje, int vidaPersonaje, bool personajeVivo, string nombreArma) : Personaje(nombrePersonaje, vidaPersonaje, personajeVivo), arma(nombreArma) {}
+
+    void atacar() override
+    {
+        cout << "Dispara desde una gran distancia con su " << arma << endl;
+    }
 };
 
 int main()
@@ -98,7 +100,7 @@ int main()
     bool vivo = true;
     int danio = 0;
     string nombre = "";
-    Personaje* jugador = nullptr;
+    Personaje *jugador = nullptr;
 
     cout << "Vamos a crear nuestro PJ!" << endl;
     cout << "Nombre del personaje:" << endl;
@@ -113,24 +115,25 @@ int main()
     cout << "[3] Arquero." << endl;
     cin >> tipoPersonaje;
 
-    switch(tipoPersonaje){
-        case 1:
-            jugador = new Guerrero(nombre,vida,vivo,"Espada de Colmillo de Basilisco!!");
-            cout << nombre << " ahora es un Guerrero!" << endl;
-            break;
-        case 2:
-            jugador = new Mago(nombre,vida,vivo,"Báculo del Poder Ilimitado!!");
-            cout << nombre << " ahora es un Mago!" << endl;
-            break;
-        case 3:
-            jugador = new Arquero(nombre,vida,vivo,"Arco de las Mil Flamas Demoniacas!!");
-            cout << nombre << " ahora es un Arquero!" << endl;
-            break;
+    switch (tipoPersonaje)
+    {
+    case 1:
+        jugador = new Guerrero(nombre, vida, vivo, "Espada de Colmillo de Basilisco!!");
+        cout << nombre << " ahora es un Guerrero!" << endl;
+        break;
+    case 2:
+        jugador = new Mago(nombre, vida, vivo, "Báculo del Poder Ilimitado!!");
+        cout << nombre << " ahora es un Mago!" << endl;
+        break;
+    case 3:
+        jugador = new Arquero(nombre, vida, vivo, "Arco de las Mil Flamas Demoniacas!!");
+        cout << nombre << " ahora es un Arquero!" << endl;
+        break;
     }
 
     while (opcion != 6 && vivo)
     {
-        cout << "\nAventuras de "<< nombre << "\nSeleccione una opción [1-5]" << endl;
+        cout << "\nAventuras de " << nombre << "\nSeleccione una opción [1-5]" << endl;
         cout << "[1] Avanzar." << endl;
         cout << "[2] Saltar." << endl;
         cout << "[3] Recibir Daño." << endl;
