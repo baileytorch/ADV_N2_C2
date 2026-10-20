@@ -1,3 +1,6 @@
+#ifndef NAVE_H
+#define NAVE_H
+
 using namespace std;
 #include <string>
 
@@ -24,3 +27,5 @@ public:
     void recibirDanio(int cantidad);
     void mostrarEstado() const;
 };
+
+#endif
