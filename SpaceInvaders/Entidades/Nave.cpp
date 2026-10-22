@@ -2,6 +2,7 @@
 #include <iostream>
 using namespace std;
 
+// Constructor de Nave
 Nave::Nave(string nombreNave, int vidaNave, int ataqueNave)
 {
     this->nombre = nombreNave;
@@ -42,8 +43,8 @@ int Nave::getAtaque() const
 bool Nave::estaDestruida() const
 {
     if(vida <= 0){
-        return false;
-    }else{
         return true;
+    }else{
+        return false;
     };
 };
