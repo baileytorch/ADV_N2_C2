@@ -7,10 +7,11 @@ class NaveJugador : public Nave
 {
 private:
     int escudo;
+
 public:
     NaveJugador(string nombre);
 
-    void disparar(Nave& objetivo) override;
+    void disparar(Nave &objetivo) override;
 
     void reparar();
 };

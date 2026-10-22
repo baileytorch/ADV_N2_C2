@@ -17,7 +17,7 @@ void Nave::recibirDanio(int cantidadDanio)
     if (vida < 0)
     {
         vida = 0;
-    }    
+    }
 }
 
 void Nave::mostrarEstado() const
@@ -42,9 +42,12 @@ int Nave::getAtaque() const
 
 bool Nave::estaDestruida() const
 {
-    if(vida <= 0){
+    if (vida <= 0)
+    {
         return true;
-    }else{
+    }
+    else
+    {
         return false;
     };
 };
