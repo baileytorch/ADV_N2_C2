@@ -16,7 +16,7 @@ void Juego::iniciar()
     }
 
     enemigos.push_back(
-        new JefeFinal());
+        new NaveEnemiga("Nodriza del Terror", 300, 35));
 
     for (auto enemigo : enemigos)
     {
