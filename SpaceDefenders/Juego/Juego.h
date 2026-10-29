@@ -10,6 +10,7 @@ class Juego
 {
 private:
     NaveJugador jugador;
+    
     vector<NaveEnemiga*> enemigos;
 public:
     Juego(/* args */);
