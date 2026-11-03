@@ -37,6 +37,7 @@ void Juego::iniciar()
         if (jugador.estaDestruida())
         {
             cout << "Game Over!" << endl;
+            return;
         }
         
         if (enemigo->estaDestruida())

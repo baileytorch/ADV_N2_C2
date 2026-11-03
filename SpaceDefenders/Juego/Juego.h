@@ -9,11 +9,10 @@ class Juego
 {
 private:
     NaveJugador jugador;
+    vector<NaveEnemiga *> enemigos;
 
-    vector<NaveEnemiga*> enemigos;
 public:
-    Juego(/* args */);
-    ~Juego();
+    Juego();
 
     void iniciar();
 };

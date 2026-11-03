@@ -10,6 +10,8 @@ Nave::Nave(string nombreNave, int vidaNave, int ataqueNave)
     this->ataque = ataqueNave;
 };
 
+Nave::~Nave() = default;
+
 void Nave::recibirDanio(int cantidadDanio)
 {
     vida -= cantidadDanio;
